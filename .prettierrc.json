@@ -1,0 +1,12 @@
+{
+    "trailingComma": "all",
+    "importOrder": [
+      "^@/types/?(.*)$",
+      "^@/services",
+      "^@/utils/?(.*)$",
+      "^@/components/?(.*)$",
+      "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
+}
