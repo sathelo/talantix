@@ -9,7 +9,7 @@ export class PlaceholderService {
   }
 
   static async getUsers(): Promise<TUser[]> {
-    const res = await $http.get(`/films`);
+    const res = await $http.get(`/users`);
     return res.data;
   }
 }

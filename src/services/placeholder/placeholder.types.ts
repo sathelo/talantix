@@ -15,18 +15,18 @@ export type TUser = {
   website: string;
   company: TCompany;
 };
-export type TAddress = {
+type TAddress = {
   street: string;
   suite: string;
   city: string;
   zipcode: string;
   geo: TGeo;
 };
-export type TGeo = {
+type TGeo = {
   lat: string;
   lng: string;
 };
-export type TCompany = {
+type TCompany = {
   name: string;
   catchPhrase: string;
   bs: string;
