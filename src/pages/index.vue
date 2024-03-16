@@ -12,13 +12,9 @@
       <div v-if="!hasLoading && !filteredPosts.length">Not found</div>
       <div v-else class="cards home__cards">
         <CCard
-          v-for="(post, postIndex) in filteredPosts"
-          :key="postIndex"
-          :post="{
-            title: post.title,
-            description: post.description,
-            author: post.author,
-          }"
+          v-for="post in filteredPosts"
+          :key="post.id"
+          :post="post"
           class="cards__card"
         />
       </div>
@@ -52,6 +48,7 @@ onMounted(async () => {
       const description = getCapitalizedText(post.body);
       const author = user ? user.name : null;
       return {
+        id: post.id,
         title: title,
         description: description,
         author: author,
