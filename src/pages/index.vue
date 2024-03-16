@@ -7,16 +7,17 @@
         path-image="/icons/search.svg"
         class="home__input home__input_search"
       />
-
-      <div v-if="!hasLoading && !filteredPosts.length">Not found</div>
-      <div v-else class="cards home__cards">
-        <CCard
-          v-for="post in filteredPosts"
-          :key="post.id"
-          :post="post"
-          class="cards__card"
-        />
-      </div>
+      <template v-if="!hasLoading">
+        <div v-if="filteredPosts.length" class="cards home__cards">
+          <CCard
+            v-for="post in filteredPosts"
+            :key="post.id"
+            :post="post"
+            class="cards__card"
+          />
+        </div>
+        <div v-else>Not found</div>
+      </template>
     </div>
   </section>
 </template>
@@ -56,9 +57,10 @@ onMounted(async () => {
         author: author,
       };
     });
-    hasLoading.value = false;
   } catch (err) {
     console.error(err);
+  } finally {
+    hasLoading.value = false;
   }
 });
 </script>
