@@ -1,12 +1,11 @@
 <template>
   <section class="home">
     <div class="container home__container">
-      <CInputSearch
+      <CInput
         v-model="searchValue"
         placeholder="Filter by author..."
         path-image="/icons/search.svg"
         class="home__input home__input_search"
-        @click-handler="clickHandlerSearch"
       />
 
       <div v-if="!hasLoading && !filteredPosts.length">Not found</div>
@@ -24,19 +23,22 @@
 
 <script setup lang="ts">
 import { PlaceholderService } from "@/services/placeholder/placeholder";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { getCapitalizedText } from "@/utils";
 
 import CCard from "@/components/Main/CCard.vue";
-import CInputSearch from "@/components/ui/CInputSearch/CInputSearch.vue";
+import CInput from "@/components/ui/CInput/CInput.vue";
 
 import { TPostCard } from "@/types";
 
 const searchValue = ref("");
-
 const hasLoading = ref(true);
 const posts = ref<TPostCard[]>([]);
-const filteredPosts = ref<TPostCard[]>([]);
+const filteredPosts = computed<TPostCard[]>(() =>
+  posts.value.filter((post) =>
+    post.author?.toLowerCase()?.includes(searchValue.value.toLowerCase()),
+  ),
+);
 onMounted(async () => {
   try {
     const responsePosts = await PlaceholderService.getPosts();
@@ -54,18 +56,11 @@ onMounted(async () => {
         author: author,
       };
     });
-    filteredPosts.value = posts.value;
     hasLoading.value = false;
   } catch (err) {
     console.error(err);
   }
 });
-
-function clickHandlerSearch() {
-  filteredPosts.value = posts.value.filter((post) =>
-    post.author?.includes(searchValue.value),
-  );
-}
 </script>
 
 <style lang="scss" scoped>

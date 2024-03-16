@@ -1,14 +1,13 @@
 <template>
   <section class="input">
-    <button class="input__button" type="button" @click="$emit('clickHandler')">
+    <label class="input__label">
       <img :src="pathImage" alt="search" class="input__ico" />
-    </button>
+    </label>
     <input
       v-model="value"
       :placeholder="placeholder"
       type="search"
       class="input__field"
-      @keydown.enter="$emit('clickHandler')"
     />
   </section>
 </template>
@@ -19,7 +18,6 @@ import { ref, computed } from "vue";
 interface IEmits {
   (e: "update:modelValue", v: string): void;
   (e: "change", v: string): void;
-  (e: "clickHandler"): void;
 }
 interface IProps {
   pathImage: string;
@@ -47,7 +45,7 @@ const value = computed({
 .input {
   display: flex;
 
-  &__button {
+  &__label {
     border-right: 1px solid var(--text-gray-lighten);
     padding: 6px 8px;
   }
